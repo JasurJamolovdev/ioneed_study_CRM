@@ -68,11 +68,6 @@ CREATE TABLE Students(
     CONSTRAINT fk_admin FOREIGN KEY(created_by_admin) REFERENCES Admins(id)
 );
 
-ALTER TABLE students 
-ADD COLUMN registrated_at DATE;
-
-ALTER TABLE students 
-ALTER COLUMN registrated_at SET DEFAULT CURRENT_DATE;
 
 CREATE OR REPLACE FUNCTION deleteStudentsFunc() RETURNS TRIGGER AS $delete_student$
     BEGIN
