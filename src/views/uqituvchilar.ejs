@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("./components/head") %>
+  <body>
+    <div class="layer"></div>
+    <!-- ! Body -->
+    <a class="skip-link sr-only" href="#skip-target">Asosiy menu</a>
+    <div class="page-flex">
+      <!-- ! Sidebar -->
+      <%- include("./components/sidebar") %>
+      <div class="main-wrapper">
+        <!-- ! Main nav -->
+        <%- include("./components/navbar") %>
+        <!-- ! Main -->
+        <main class="main users chart-page" id="skip-target">
+          <div class="container">
+            <div class="row m-2">
+              <div class="col-12 col-md-6">
+                <h1 class="m-2 text-primary">Yangi o'qituvchi qo'shish</h1>
+                <form
+                  class="sign-up-form form"
+                  action="/postTeacher"
+                  method="post"
+                  enctype="multipart/form-data"
+                >
+                  <div class="row">
+                    <div class="col-12 col-md-6">
+                      <label class="form-label-wrapper">
+                        <p class="form-label">O'qituvchi ismi</p>
+                        <input
+                          class="form-input"
+                          type="text"
+                          placeholder="Chat"
+                          name="teacher_name"
+                          required
+                        />
+                      </label>
+                    </div>
+                    <div class="col-12 col-md-6">
+                      <label class="form-label-wrapper">
+                        <p class="form-label">O'qituvchi Familiyasi</p>
+                        <input
+                          class="form-input"
+                          type="text"
+                          placeholder="GPT 4 (3)"
+                          name="teacher_surname"
+                          required
+                        />
+                      </label>
+                    </div>
+                    <div class="col-12 col-md-6">
+                      <label class="form-label-wrapper">
+                        <p class="form-label">Telefon raqam</p>
+                        <input
+                          class="form-input"
+                          type="number"
+                          name="teacher_phone"
+                          placeholder="+99893765129"
+                          required
+                        />
+                      </label>
+                    </div>
+                    <div class="col-12 col-md-6">
+                      <label class="form-label-wrapper">
+                        <p class="form-label">Yo'nalish</p>
+                        <select
+                          class="form-input"
+                          name="teacher_direction"
+                          id="courseId"
+                        >
+                          <% courses.forEach(course => { %>
+                          <option value="<%= course.id %>">
+                            <%= course.course_title %>
+                          </option>
+                          <% }); %>
+                        </select>
+                      </label>
+                    </div>
+
+                    <div class="col-12">
+                      <label class="form-label-wrapper">
+                        <p class="form-label">Rasm 3x4</p>
+                        <input
+                          class="form-input"
+                          type="file"
+                          name="teacher_img"
+                          required
+                        />
+                      </label>
+                    </div>
+                    <div class="col-12 my-2">
+                      <button
+                        class="form-btn primary-default-btn"
+                        type="submit"
+                      >
+                        Qo'shish
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div class="col-12 col-md-6">
+                <img
+                  src="/img/advertising/adv1.jpg"
+                  alt="img"
+                  class="my-4 adverstingBox"
+                />
+              </div>
+            </div>
+            <div class="row m-2 my-4 table-bg">
+              <div class="col">
+                <table id="example" class="display" style="width: 100%">
+                  <thead>
+                    <tr>
+                      <th>Rasmi</th>
+                      <th>Ism - Familiyasi</th>
+                      <th>Tel Raqami</th>
+                      <th>Yo'nalishi</th>
+                      <th>Id Raqami</th>
+                      <th>Tahrirlash</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% teachers.forEach(t => { %>
+                    <tr>
+                      <td>
+                        <img
+                          src="<%= t.teacher_img %>"
+                          alt="img"
+                          class="table_img"
+                        />
+                      </td>
+                      <td><%= t.teacher_name %> - <%= t.teacher_surname %></td>
+                      <td><%= t.teacher_phone_num %></td>
+                      <td><%= t.course_title %></td>
+                      <td><%= t.id %></td>
+                      <td>
+                        <form
+                          action="/deleteTeacher"
+                          method="post"
+                          enctype="application/x-www-form-urlencoded"
+                        >
+                          <a
+                            href="#update_modal"
+                            class="btn btn-primary"
+                            style="margin-right: 3px"
+                          >
+                            <i class="fa fa-edit"></i>
+                          </a>
+                          <input
+                            type="text"
+                            name="teacher_id"
+                            value="<%= t.id %>"
+                            hidden
+                          />
+                          <button type="submit" class="btn btn-danger">
+                            <i class="fa fa-trash"></i>
+                          </button>
+                        </form>
+                      </td>
+                    </tr>
+                    <% }) %>
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <th>Pic</th>
+                      <th>Name</th>
+                      <th>Phone</th>
+                      <th>Direction</th>
+                      <th>Id Number</th>
+                      <th>Edit</th>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+            </div>
+          </div>
+        </main>
+        <div id="update_modal" class="modal">
+          <div class="modal__content text-center">
+            <h2 class="fw-bold">O'qituvchini tahrirlash!</h2>
+            <p class="py-2">Maydonlarni to'ldiring.</p>
+            <div class="col-12">
+              <form
+                class="sign-up-form form my-2"
+                action="/updateTeacher"
+                method="post"
+                enctype="application/x-www-form-urlencoded"
+              >
+                <div class="row">
+                  <div class="col-12 col-md-6">
+                    <label class="form-label-wrapper">
+                      <p class="form-label">O'qituvchi id raqami</p>
+                      <input
+                        class="form-input"
+                        type="text"
+                        name="teacher_id"
+                        placeholder="ID..."
+                        required
+                      />
+                    </label>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <label class="form-label-wrapper">
+                      <p class="form-label">Telefon raqami</p>
+                      <input
+                        class="form-input"
+                        type="number"
+                        name="teacher_phone_num"
+                        placeholder="+99893765129"
+                        required
+                      />
+                    </label>
+                  </div>
+                  <div class="col-12 my-2">
+                    <button class="form-btn primary-default-btn" type="submit">
+                      Tahrirlash
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <a href="#" class="modal__close">&times;</a>
+          </div>
+        </div>
+        <!-- ! Footer -->
+        <%- include("./components/footer") %>
+      </div>
+    </div>
+    <!-- Scripts -->
+    <%- include("./components/scripts") %>
+  </body>
+</html>

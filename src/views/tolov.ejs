@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("./components/head") %>
+  <body>
+    <div class="layer"></div>
+    <!-- ! Body -->
+    <a class="skip-link sr-only" href="#skip-target">Asosiy menu</a>
+    <div class="page-flex">
+      <!-- ! Sidebar -->
+      <%- include("./components/sidebar") %>
+
+      <div class="main-wrapper">
+        <!-- ! Main nav -->
+        <%- include("./components/navbar") %>
+        <!-- ! Main -->
+        <main class="main users chart-page" id="skip-target">
+          <div class="container">
+            <div class="row m-2">
+              <div class="col-12 col-lg-9">
+                <h1 class="m-2 text-primary">To'lov formasi</h1>
+                <form
+                  action="/postPayment"
+                  method="post"
+                  enctype="multipart/form-data"
+                >
+                  <div class="row">
+                    <div class="col-12 col-md-6">
+                      <label class="form-label-wrapper">
+                        <p class="form-label">O'quvchini tanlang</p>
+                        <select class="form-input" name="student_id">
+                          <% studentsList.forEach(s => { %>
+                          <option value="<%= s.id %>">
+                            <%= s.student_name %>
+                          </option>
+                          <% }) %>
+                        </select>
+                      </label>
+                    </div>
+                    <div class="col-12 col-md-6">
+                      <label class="form-checkbox-wrapper mt-4 mx-1">
+                        <p class="fw-bold text-primary">To'lov qilganmi?</p>
+                        <input
+                          type="checkbox"
+                          class="form-checkbox"
+                          name="payment"
+                          id="studentId"
+                        />
+                      </label>
+                    </div>
+                    <div class="col-12 col-md-6">
+                      <label class="form-label-wrapper">
+                        <p class="form-label">Sanani kiriting</p>
+                        <input type="date" class="form-input" name="datePay" />
+                      </label>
+                    </div>
+                    <div class="col-12 col-md-6">
+                      <label class="form-label-wrapper">
+                        <p class="form-label">Kursni kiriting</p>
+                        <select
+                          name="course_id"
+                          class="form-input"
+                          id="courseid"
+                        >
+                          <% course.forEach(c => { %>
+                          <option value="<%= c.id %>">
+                            <%= c.course_title %>
+                          </option>
+                          <% }) %>
+                        </select>
+                      </label>
+                    </div>
+                    <div class="col-12 my-1">
+                      <label class="form-label-wrapper">
+                        <p class="form-label">To'lov chekini yuklang</p>
+                        <input type="file" class="form-input" name="checkPic" />
+                      </label>
+                    </div>
+                    <div class="col-12">
+                      <button
+                        class="form-btn primary-default-btn"
+                        type="submit"
+                      >
+                        Qo'shish
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div class="col-12 col-lg-3">
+                <img
+                  src="/img/advertising/ioneeduz.png"
+                  alt="img"
+                  class="adverstingBox"
+                />
+              </div>
+            </div>
+            <div class="row m-2 my-4 table-bg">
+              <div class="col">
+                <h1 class="m-2 text-primary">
+                  To'lov qilganlar <span class="fs-2">(ushbu oy uchun)</span>
+                </h1>
+                <table id="example" class="display" style="width: 100%">
+                  <thead>
+                    <tr>
+                      <th>To'lov id</th>
+                      <th>O'quvchi ismi</th>
+                      <th>To'lov holati</th>
+                      <th>To'lov vaqti</th>
+                      <th>Chek rasmi</th>
+                      <th>Tahrirlash</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% payments.forEach(p => { %>
+                    <tr>
+                      <td><%= p.id %></td>
+                      <td><%= p.student_name %></td>
+                      <td class="<%= p.payment ? 'successPay' : 'dangerPay' %>">
+                        <%= p.payment ? 'To\'langan' : 'To\'lanmagan' %>
+                      </td>
+                      <td><%= p.formatted_date %></td>
+                      <td>
+                        <img
+                          src="<%= p.checkpic %>"
+                          alt="img"
+                          class="table_img"
+                        />
+                      </td>
+                      <td>
+                        <form
+                          action="/deletePayment"
+                          method="post"
+                          enctype="application/x-www-form-urlencoded"
+                        >
+                          <a
+                            href="#update_modal"
+                            class="btn btn-primary"
+                            style="margin-right: 3px"
+                          >
+                            <i class="fa fa-edit"></i>
+                          </a>
+                          <input
+                            type="text"
+                            name="payment_id"
+                            value="<%= p.id %>"
+                            hidden
+                          />
+                          <button type="submit" class="btn btn-danger">
+                            <i class="fa fa-trash"></i>
+                          </button>
+                        </form>
+                      </td>
+                    </tr>
+                    <% }) %>
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <th>Payment Id</th>
+                      <th>Student Name</th>
+                      <th>Payment Status</th>
+                      <th>Payment Date</th>
+                      <th>Payment Pic</th>
+                      <th>Edit</th>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+            </div>
+          </div>
+        </main>
+        <div id="update_modal" class="modal">
+          <div class="modal__content text-center">
+            <h2 class="fw-bold">To'lovni tahrirlash!</h2>
+            <p class="py-2">Maydonlarni to'ldiring.</p>
+            <div class="col-12">
+              <form
+                action="/updatePayment"
+                method="post"
+                enctype="multipart/form-data"
+              >
+                <div class="row">
+                  <div class="col-12 col-md-6">
+                    <label class="form-label-wrapper">
+                      <p class="form-label">To'lov identifikatori</p>
+                      <input
+                        type="text"
+                        class="form-input"
+                        name="id"
+                        placeholder="Payment Id"
+                        required
+                      />
+                    </label>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <label class="form-checkbox-wrapper mt-4 mx-1">
+                      <p class="fw-bold text-primary">To'lov qilganmi?</p>
+                      <input
+                        type="checkbox"
+                        class="form-checkbox"
+                        name="payment"
+                        id="studentId"
+                        required
+                      />
+                    </label>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <label class="form-label-wrapper">
+                      <p class="form-label">Sanani kiriting</p>
+                      <input
+                        type="date"
+                        class="form-input"
+                        name="datePay"
+                        required
+                      />
+                    </label>
+                  </div>
+                  <div class="col-12 col-md-6 my-1">
+                    <label class="form-label-wrapper">
+                      <p class="form-label">To'lov chekini yuklang</p>
+                      <input type="file" class="form-input" name="checkPic" />
+                    </label>
+                  </div>
+                  <div class="col-12">
+                    <button class="form-btn primary-default-btn" type="submit">
+                      Qo'shish
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <a href="#" class="modal__close">&times;</a>
+          </div>
+        </div>
+        <!-- ! Footer -->
+        <%- include("./components/footer") %>
+      </div>
+    </div>
+    <!-- Scripts -->
+    <%- include("./components/scripts") %>
+    <script>
+      const paymentCondition = document.querySelector(".paymentCondition");
+      if (paymentCondition.textContent === "To'langan") {
+        paymentCondition.className = "successPay";
+      } else {
+        paymentCondition.className = "dangerPay";
+      }
+    </script>
+  </body>
+</html>

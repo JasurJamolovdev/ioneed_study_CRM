@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("./components/head") %>
+  <body>
+    <div class="layer"></div>
+    <!-- ! Body -->
+    <a class="skip-link sr-only" href="#skip-target">Asosiy menu</a>
+    <div class="page-flex">
+      <!-- ! Sidebar -->
+      <%- include("./components/sidebar") %>
+      <div class="main-wrapper">
+        <!-- ! Main nav -->
+        <%- include("./components/navbar") %>
+        <!-- ! Main -->
+        <main class="main users chart-page" id="skip-target">
+          <div class="container">
+            <div class="row m-2">
+              <div class="col-12 col-md-6">
+                <h1 class="m-2 text-primary">Yangi o'quvchi qo'shish</h1>
+                <form
+                  class="sign-up-form form"
+                  action="/postStudent"
+                  method="post"
+                  enctype="multipart/form-data"
+                >
+                  <div class="row">
+                    <div class="col-12 col-md-6">
+                      <label class="form-label-wrapper">
+                        <p class="form-label">O'quvchi ismi</p>
+                        <input
+                          class="form-input"
+                          type="text"
+                          placeholder="Jasur"
+                          name="name"
+                          required
+                        />
+                      </label>
+                    </div>
+                    <div class="col-12 col-md-6">
+                      <label class="form-label-wrapper">
+                        <p class="form-label">O'quvchi Familiyasi</p>
+                        <input
+                          class="form-input"
+                          type="text"
+                          placeholder="Jamolov"
+                          name="surname"
+                          required
+                        />
+                      </label>
+                    </div>
+                    <div class="col-12 col-md-6">
+                      <label class="form-label-wrapper">
+                        <p class="form-label">Telefon raqam</p>
+                        <input
+                          class="form-input"
+                          type="number"
+                          name="phone"
+                          placeholder="+99893765129"
+                          required
+                        />
+                      </label>
+                    </div>
+                    <div class="col-12 col-md-6">
+                      <label class="form-label-wrapper">
+                        <p class="form-label">Yo'nalish</p>
+                        <select
+                          class="form-input"
+                          name="direction"
+                          id="courseId"
+                        >
+                          <% courses.forEach(course => { %>
+                          <option value="<%= course.id %>">
+                            <%= course.course_title %>
+                          </option>
+                          <% }); %>
+                        </select>
+                      </label>
+                    </div>
+                    <div class="col-12 col-md-6">
+                      <label class="form-label-wrapper">
+                        <p class="form-label">Ota-onasining ismi</p>
+                        <input
+                          class="form-input"
+                          type="text"
+                          name="parentsName"
+                          placeholder="Latipov Jamshid"
+                          required
+                        />
+                      </label>
+                    </div>
+                    <div class="col-12 col-md-6">
+                      <label class="form-label-wrapper">
+                        <p class="form-label">Ota-onasining raqami</p>
+                        <input
+                          class="form-input"
+                          type="number"
+                          name="parentsPhone"
+                          placeholder="Latipov Jamshid"
+                          required
+                        />
+                      </label>
+                    </div>
+                    <div class="col-12 col-md-6">
+                      <label class="form-label-wrapper">
+                        <p class="form-label">Rasm 3x4</p>
+                        <input
+                          class="form-input"
+                          type="file"
+                          name="student_img"
+                          required
+                        />
+                      </label>
+                    </div>
+                    <div class="col-12 col-md-6">
+                      <label class="form-label-wrapper">
+                        <p class="form-label">Qaysi guruxga</p>
+                        <select
+                          class="form-input"
+                          name="group_id"
+                          id="groupId"
+                        ></select>
+                      </label>
+                    </div>
+                    <div class="col-12 my-2">
+                      <button
+                        class="form-btn primary-default-btn"
+                        type="submit"
+                      >
+                        Qo'shish
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div class="col-12 col-md-6">
+                <img
+                  src="/img/advertising/adv1.jpg"
+                  alt="img"
+                  class="my-4 adverstingBox"
+                />
+              </div>
+            </div>
+            <div class="row m-2 my-4 table-bg">
+              <div class="col">
+                <table id="example" class="display" style="width: 100%">
+                  <thead>
+                    <tr>
+                      <th>Rasmi</th>
+                      <th>Ism - Familiyasi</th>
+                      <th>Tel raqami</th>
+                      <th>Yo'nalishi</th>
+                      <th>Ota/Ona I</th>
+                      <th>Ota/Ona T</th>
+                      <th>Tahrirlash</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% students.forEach(s => { %>
+                    <tr>
+                      <td>
+                        <img
+                          src="<%= s.student_img %>"
+                          alt="img"
+                          class="table_img"
+                        />
+                      </td>
+                      <td><%= s.student_name %> - <%= s.student_surname %></td>
+                      <td><%= s.student_phone_num %></td>
+                      <td><%= s.course_title %></td>
+                      <td><%= s.parents_name %></td>
+                      <td><%= s.parents_phone_num %></td>
+                      <td>
+                        <form
+                          action="/deleteStudent"
+                          method="post"
+                          enctype="application/x-www-form-urlencoded"
+                        >
+                          <a href="#" class="btn btn-primary">
+                            <i class="fa fa-edit"></i>
+                          </a>
+                          <input
+                            type="text"
+                            name="student_id"
+                            value="<%= s.id %>"
+                            hidden
+                          />
+                          <button type="submit" class="btn btn-danger">
+                            <i class="fa fa-trash"></i>
+                          </button>
+                        </form>
+                      </td>
+                    </tr>
+                    <% }) %>
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <th>Pic</th>
+                      <th>Name</th>
+                      <th>Phone</th>
+                      <th>Direction</th>
+                      <th>parents N</th>
+                      <th>Parents P</th>
+                      <th>Edit</th>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+            </div>
+          </div>
+        </main>
+        <!-- ! Footer -->
+        <%- include("./components/footer") %>
+      </div>
+    </div>
+    <!-- Scripts -->
+    <%- include("./components/scripts") %>
+    <script>
+      const selectcourse = document.querySelector("#courseId");
+      selectcourse.addEventListener("change", (e) => {
+        const course_id = e.target.value;
+        fetch("http://localhost:3003/selectGroup", {
+          method: "post",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ course_id: course_id }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            const groups = data;
+            const selectGroup = document.querySelector("#groupId");
+            const option = document.createElement("option");
+            groups.forEach((g) => {
+              option.value = g.id;
+              option.textContent = g.group_title;
+              selectGroup.appendChild(option);
+            });
+          });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('./components/head.ejs'); %>
+  <body>
+    <div class="layer"></div>
+    <!-- Body -->
+    <a class="skip-link sr-only" href="#skip-target">Asosiy menu</a>
+    <div class="page-flex">
+      <!-- ! Sidebar -->
+      <%- include("./components/sidebar") %>
+      <div class="main-wrapper">
+        <!-- ! Main nav -->
+        <%- include("./components/navbar") %>
+        <!-- ! Main -->
+        <main class="main users chart-page" id="skip-target">
+          <div class="container">
+            <div class="row stat-cards">
+              <div class="col-md-12 col-xl-6 my-3">
+                <article class="stat-cards-item">
+                  <h2 class="stat-card-info__title">Jami o'quvchilar soni:</h2>
+                  <br />
+                  <p class="stat-cards-info__num"><%= stud %></p>
+                  <div class="stat-cards-icon primary float-left">
+                    <i data-feather="bar-chart-2" aria-hidden="true"></i>
+                  </div>
+                </article>
+              </div>
+              <div class="col-md-12 col-xl-6 my-3">
+                <article class="stat-cards-item">
+                  <h2 class="stat-card-info__title">O’qituvchilar soni:</h2>
+                  <br />
+                  <p class="stat-cards-info__num"><%= teach %></p>
+                  <div class="stat-cards-icon primary float-left">
+                    <i data-feather="bar-chart-2" aria-hidden="true"></i>
+                  </div>
+                </article>
+              </div>
+              <div class="col-md-12 col-xl-6 my-3">
+                <article class="stat-cards-item">
+                  <h2 class="stat-card-info__title">Tark etgan o'quvchilar:</h2>
+                  <br />
+                  <p class="stat-cards-info__num"><%= dstud %></p>
+                  <div class="stat-cards-icon primary float-left">
+                    <i data-feather="bar-chart-2" aria-hidden="true"></i>
+                  </div>
+                </article>
+              </div>
+              <div class="col-md-12 col-xl-6 my-3">
+                <article class="stat-cards-item">
+                  <h2 class="stat-card-info__title">Jami guruhlar soni</h2>
+                  <br />
+                  <p class="stat-cards-info__num"><%= gro %></p>
+                  <div class="stat-cards-icon primary float-left">
+                    <i data-feather="bar-chart-2" aria-hidden="true"></i>
+                  </div>
+                </article>
+              </div>
+            </div>
+            <div>
+              <canvas id="myChart"></canvas>
+            </div>
+          </div>
+        </main>
+        <!-- ! Footer -->
+        <%- include("./components/footer") %>
+      </div>
+    </div>
+
+    <!--  Scripts -->
+    <%- include("./components/scripts") %>
+  </body>
+</html>

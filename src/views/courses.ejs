@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("./components/head") %>
+  <body>
+    <div class="layer"></div>
+    <!-- ! Body -->
+    <a class="skip-link sr-only" href="#skip-target">Asosiy menu</a>
+    <div class="page-flex">
+      <!-- ! Sidebar -->
+      <%- include("./components/sidebar") %>
+      <div class="main-wrapper">
+        <!-- ! Main nav -->
+        <%- include("./components/navbar") %>
+        <!-- ! Main -->
+        <main class="main users chart-page" id="skip-target">
+          <div class="container">
+            <div class="row m-2">
+              <div class="col-12 col-lg-6">
+                <h1 class="m-2 text-primary">Yangi Kurs qo'shish</h1>
+                <form
+                  class="sign-up-form form"
+                  action="/courses"
+                  method="post"
+                  enctype="application/x-www-form-urlencoded"
+                >
+                  <div class="row">
+                    <div class="col-12">
+                      <label class="form-label-wrapper">
+                        <p class="form-label">Kurs nomi</p>
+                        <input
+                          class="form-input"
+                          type="text"
+                          placeholder="fizika"
+                          name="course_name"
+                          required
+                        />
+                      </label>
+                    </div>
+                    <div class="col-12">
+                      <button
+                        class="form-btn primary-default-btn"
+                        type="submit"
+                      >
+                        Qo'shish
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div class="col-12 col-lg-3">
+                <a href="https://t.me/ioneed_crm">
+                  <img
+                    src="/img/advertising/adv1.jpg"
+                    alt="img"
+                    class="adverstingBox"
+                  />
+                </a>
+              </div>
+            </div>
+            <div class="row m-2 my-4 table-bg">
+              <div class="col">
+                <table id="example" class="display" style="width: 100%">
+                  <thead>
+                    <tr>
+                      <th>Kurs id</th>
+                      <th>Kurs nomi</th>
+                      <th>Yaratilgan vaqti</th>
+                      <th>Kim tomonidan yaratilgan</th>
+                      <th>O'zgartirish</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% course.forEach(c => { %>
+                    <tr>
+                      <td><%= c.id %></td>
+                      <td><%= c.course_title %></td>
+                      <td><%= c.created_at %></td>
+                      <td><%= c.name %></td>
+                      <td>
+                        <form
+                          action="/deleteCourse"
+                          method="post"
+                          enctype="application/x-www-form-urlencoded"
+                        >
+                          <a href="#demo-modal" class="btn btn-primary mx-05">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                          </a>
+                          <input
+                            type="text"
+                            value="<%= c.id %>"
+                            name="course_id"
+                            hidden
+                          />
+                          <button type="submit" class="btn btn-danger">
+                            <i class="fa-solid fa-trash"></i>
+                          </button>
+                        </form>
+                      </td>
+                    </tr>
+                    <% }); %>
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <th>course id</th>
+                      <th>course title</th>
+                      <th>created at</th>
+                      <th>created by</th>
+                      <th>edit</th>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+            </div>
+          </div>
+        </main>
+        <div id="demo-modal" class="modal">
+          <div class="modal__content text-center">
+            <h2 class="fw-bold">Kurslaringizni nomi bo'yicha tahrirlang!</h2>
+            <p class="py-2">
+              Birinchi inputga tahrirlamoqchi bo'lgan kursingiz "ID" sini
+              kiriting! Ikkinchisida kusning yangi nomini kiriting.
+            </p>
+            <div class="col-12">
+              <form
+                class="sign-up-form form my-2"
+                action="/updateCourse"
+                method="post"
+                enctype="application/x-www-form-urlencoded"
+              >
+                <label class="form-label-wrapper">
+                  <p class="form-label">Kurs ID</p>
+                  <input
+                    class="form-input"
+                    type="text"
+                    placeholder="id..."
+                    name="course_id"
+                    required
+                  />
+                </label>
+                <label class="form-label-wrapper">
+                  <p class="form-label">Kurs nomi</p>
+                  <input
+                    class="form-input"
+                    type="text"
+                    placeholder="Algebra"
+                    name="course_title"
+                    required
+                  />
+                </label>
+                <button class="form-btn primary-default-btn" type="submit">
+                  Tahrirlash
+                </button>
+              </form>
+            </div>
+            <a href="#" class="modal__close">&times;</a>
+          </div>
+        </div>
+        <!-- ! Footer -->
+        <%- include("./components/footer") %>
+      </div>
+    </div>
+    <!-- Scripts -->
+    <%- include("./components/scripts") %>
+  </body>
+</html>

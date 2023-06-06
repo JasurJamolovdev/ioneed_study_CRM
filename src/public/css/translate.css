@@ -1,0 +1,33 @@
+.goog-te-banner-frame.skiptranslate, .goog-te-gadget-simple img {
+    display: none !important;
+ }
+ .goog-tooltip {
+   display: none !important;
+ }
+ .goog-tooltip:hover{
+   display: none !important;
+ }
+
+ .goog-text-highlight {
+   background-color: transparent !important;
+   border: none !important;
+   box-shadow: none !important;
+ }
+.goog-te-gadget-simple {
+ background-color: transparent !important;
+ border-radius: 5px !important;
+ padding: 7px 5px !important;
+ border: 1px solid white !important;
+ outline: none !important;
+}
+.goog-te-gadget-simple .VIpgJd-ZVi9od-xl07Ob-lTBxed span {
+ color: black !important;
+}
+
+ .VIpgJd-ZVi9od-aZ2wEe-OiiCO{
+   display: none !important;
+ }
+ .VIpgJd-ZVi9od-ORHb-OEVmcd {
+   display: none !important;
+
+ }

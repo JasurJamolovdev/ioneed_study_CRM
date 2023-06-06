@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("./components/head") %>
+  <body>
+    <div class="layer"></div>
+    <main class="page-center">
+      <article class="sign-up">
+        <h1 class="sign-up__title">Boshladik!</h1>
+        <p class="sign-up__subtitle">
+          Ro'yxatdan o'ting va o'quv markazingizni cheksiz boshqaring!
+        </p>
+        <form
+          class="sign-up-form form"
+          action="/signUp"
+          method="post"
+          enctype="multipart/form-data"
+        >
+          <label class="form-label-wrapper">
+            <p class="form-label">Ism</p>
+            <input
+              class="form-input"
+              type="text"
+              name="user_name"
+              placeholder="Ismingizni kiriting"
+              required
+            />
+          </label>
+          <label class="form-label-wrapper">
+            <p class="form-label">Email</p>
+            <input
+              class="form-input"
+              type="email"
+              name="user_email"
+              placeholder="Emailni kiriting"
+              required
+            />
+          </label>
+          <label class="form-label-wrapper">
+            <p class="form-label">Parol</p>
+            <input
+              class="form-input"
+              type="password"
+              name="user_password"
+              placeholder="Passwordni kiriting"
+              required
+            />
+          </label>
+          <label class="form-label-wrapper">
+            <p class="form-label">Rasmingizni kiriting</p>
+            <input class="form-input" type="file" name="user_img" required />
+          </label>
+          <button class="form-btn primary-default-btn transparent-btn">
+            Ro'yxatdan o'tish
+          </button>
+        </form>
+      </article>
+      <a href="/signIn" class="text-primary my-3">Akkauntingiz mavjudmi?</a>
+    </main>
+    <!-- Scripts -->
+    <%- include("./components/scripts") %>
+  </body>
+</html>

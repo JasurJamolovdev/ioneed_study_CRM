@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('./components/head.ejs'); %>
+
+  <body>
+    <div class="layer"></div>
+    <!-- ! Body -->
+    <a class="skip-link sr-only" href="#skip-target">Asosiy menu</a>
+    <div class="page-flex">
+      <!-- ! Sidebar -->
+      <%- include("./components/sidebar.ejs") %>
+      <div class="main-wrapper">
+        <!-- ! Main nav -->
+        <%- include("./components/navbar") %>
+        <!-- ! Main -->
+        <main class="main users chart-page" id="skip-target">
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-xl-7">
+                <h1 class="text-primary mx-2">
+                  Davomat olinadigan guruxni tanlang!
+                </h1>
+              </div>
+            </div>
+            <div class="row m-2 my-2">  
+              <% groups.forEach(g => { %>
+              <div class="col-xl-4 my-3" id="Card_group">
+                <div class="card-groups">
+                  <div class="top-pill">
+                    <p class="group_title"><%= g.group_title %></p>
+                  </div>
+                    <a href="davomat/<%= g.id %>" class="card-box">
+                      <div class="row my-2">
+                        <div class="col-3 m-2">
+                          <img
+                            src="<%= g.teacher_img %>"
+                            alt="avatar"
+                            class="img-cirlce"
+                          />
+                        </div>
+                        <div class="col-8 my-3">
+                          <p class="f1">
+                            O'qituvchi:
+                            <span class="f"
+                              ><%= g.teacher_surname %> <%= g.teacher_name
+                              %></span
+                            >
+                          </p>
+                          <p class=" f1">
+                            Tell raqam: <span class="f"><%= g.teacher_phone_num %></span>
+                          </p>
+                        </div>
+                      </div>
+                      <div class="primary-texts-card p-2">
+                        <div class="card-text-wrapper">
+                          <p class="f1">Dars kunlari:</p>
+                          <p class="f"><%= g.day_lesson %></p>
+                        </div>
+                        <div class="card-text-wrapper">
+                          <p class="f1">Dars vaqti:</p>
+                          <p class="f"><%= g.time_lesson %></p>
+                        </div>
+                        <div class="card-text-wrapper">
+                          <p class="f1">Gurux yo'nalishi:</p>
+                          <p class="f"><%= g.course_title %></p>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                </form>
+              </div>
+              <% }) %>
+              <div class="col-4 my-3"></div>
+            </div>
+          </div>
+        </main>
+        <!-- ! Footer -->
+        <%- include("./components/footer") %>
+      </div>
+    </div>
+    <!-- Scripts -->
+    <%- include("./components/scripts") %>
+    <!-- <script>
+        const card_group = document.querySelectorAll("#Card_group");
+        card_group.addEventListener('click', (e) => {
+            e.preventDefault();
+            const p = document.querySelector(".group_title");
+            console.log(p);
+        })
+    </script> -->
+  </body>
+</html>

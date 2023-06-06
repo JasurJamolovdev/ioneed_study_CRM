@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include("./components/head") %>
+
+    <body>
+        <div class="layer"></div>
+        <!-- ! Body -->
+        <a class="skip-link sr-only" href="#skip-target">Asosiy menu</a>
+        <div class="page-flex">
+            <!-- ! Sidebar -->
+            <%- include("./components/sidebar") %>
+                <div class="main-wrapper">
+                    <!-- ! Main nav -->
+                    <%- include("./components/navbar") %>
+                        <!-- ! Main -->
+                        <main class="main users chart-page" id="skip-target">
+                            <div class="container">
+                                <div class="row m-2">
+                                    <div class="col-12 col-lg-9">
+                                        <h1 class="m-2 text-primary">Yangi gurux qo'shish</h1>
+                                        <form class="sign-up-form form" action="/postGroup" method="post" enctype="application/x-www-form-urlencoded">
+                                            <div class="row">
+                                                <div class="col-12 col-md-4">
+                                                    <label class="form-label-wrapper">
+                                                        <p class="form-label">Gurux nomi</p>
+                                                        <input class="form-input" type="text" name="group_title" placeholder="react-js-44" required>
+                                                    </label>
+                                                </div>
+                                                <div class="col-12 col-md-4">
+                                                    <label class="form-label-wrapper">
+                                                        <p class="form-label">Gurux yo'nalishi</p>
+                                                        <select class="form-input" name="group_direction" id="selectOnCourse">
+                                                           <% course.forEach(c => { %>
+                                                                <option value="<%= c.id %>"><%= c.course_title %></option>
+                                                           <% }); %>
+                                                        </select>
+                                                    </label>
+                                                </div>
+                                                <div class="col-12 col-md-4">
+                                                    <label class="form-label-wrapper">
+                                                        <p class="form-label">Dars kunlari</p>
+                                                        <select name="day_lesson" id="time" class="form-input">
+                                                            <option value="Monday-Wednesday-Friday">Dush-Chor-Juma</option>
+                                                            <option value="Tuesday-Thursday-Saturday">Sesh-Pay-shanba</option>
+                                                        </select>
+                                                    </label>
+                                                </div>
+                                                <div class="col-12 col-md-6">
+                                                    <label class="form-label-wrapper">
+                                                        <p class="form-label">Dars vaqti</p>
+                                                        <select name="time_lesson" id="time" class="form-input">
+                                                            <option value="5:30-8:00">5:30-8:00</option>
+                                                            <option value="8:00-11:00">8:00-11:00</option>
+                                                            <option value="11:30-14:30">11:30-14:30</option>
+                                                            <option value="15:00-17:00">15:00-17:00</option>
+                                                            <option value="18:00-21:00">18:00-21:00</option>
+                                                        </select>
+                                                    </label>
+                                                </div>
+                                                <div class="col-12 col-md-6">
+                                                    <label class="form-label-wrapper">
+                                                        <p class="form-label">O'qituvchi</p>
+                                                        <select class="form-input" name="teacher_id" name="select" id="TeacherId">
+                                                        </select>
+                                                    </label>
+                                                </div>
+                                                <div class="col-12">
+                                                    <button class="form-btn primary-default-btn" type="submit">Qo'shish</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="col-12 col-lg-3">
+                                        <img src="/img/advertising/ioneeduz.png" alt="img" class="adverstingBox">
+                                    </div>
+                                </div>
+                                <div class="row m-2 my-4">
+                                    <% groups.forEach(g => { %>
+                                        <div class="col-xl-4 my-3" id="Card_group">
+                                          <div class="card-groups">
+                                            <div class="top-pill">
+                                              <p class="group_title"><%= g.group_title %></p>
+                                              <button class="btn-update" onclick="window.location.href='#update_modal'"><i class="fa-solid fa-ellipsis"></i></button>
+                                            </div>
+                                              <a href="davomat/<%= g.id %>" class="card-box">
+                                                <div class="row my-2">
+                                                  <div class="col-3 m-2">
+                                                    <img
+                                                      src="<%= g.teacher_img %>"
+                                                      alt="avatar"
+                                                      class="img-cirlce"
+                                                    />
+                                                  </div>
+                                                  <div class="col-8 my-3">
+                                                    <p class="card_teacher_place">
+                                                      O'qituvchi:
+                                                      <span
+                                                        ><%= g.teacher_surname %> <%= g.teacher_name
+                                                        %></span
+                                                      >
+                                                    </p>
+                                                    <p class="card_teacher_place">
+                                                      Tell raqam: <span><%= g.teacher_phone_num %></span>
+                                                    </p>
+                                                  </div>
+                                                </div>
+                                                <div class="primary-texts-card p-2">
+                                                  <div class="card-text-wrapper">
+                                                    <p class="f1">Dars kunlari:</p>
+                                                    <p><%= g.day_lesson %></p>
+                                                  </div>
+                                                  <div class="card-text-wrapper">
+                                                    <p class="f1">Dars vaqti:</p>
+                                                    <p><%= g.time_lesson %></p>
+                                                  </div>
+                                                  <div class="card-text-wrapper">
+                                                    <p class="f1">Gurux yo'nalishi:</p>
+                                                    <p><%= g.course_title %></p>
+                                                  </div>
+                                                </div>
+                                              </a>
+                                            </div>
+                                          </form>
+                                        </div>
+                                        <% }) %>
+                                </div>
+                            </div>
+                        </main>
+                        <div id="update_modal" class="modal">
+                          <div class="modal__content text-center">
+                            <h2 class="fw-bold">Guruxni tahrirlash!</h2>
+                            <p class="py-2">
+                              Maydonlarni to'ldiring.
+                            </p>
+                            <div class="col-12">
+                              <form 
+                                class="sign-up-form form my-2 "
+                                action="/updateGroup"
+                                method="post"
+                                enctype="application/x-www-form-urlencoded"
+                              >
+                                <div class="row">
+                                  <div class="col-12 col-md-6">
+                                    <label class="form-label-wrapper">
+                                      <p class="form-label">Gurux nomi</p>
+                                      <input
+                                        class="form-input"
+                                        type="text"
+                                        name="group_title"
+                                        placeholder="fullstack-n-74..."
+                                        required
+                                      />
+                                    </label>
+                                  </div>
+                                  <div class="col-12 col-md-6">
+                                    <label class="form-label-wrapper">
+                                      <p class="form-label">Dars kunlari</p>
+                                      <select name="day_lesson" id="time" class="form-input">
+                                        <option value="Monday-Wednesday-Friday">Dush-Chor-Juma</option>
+                                        <option value="Tuesday-Thursday-Saturday">Sesh-Pay-shanba</option>
+                                      </select>
+                                    </label>
+                                  </div>
+                                  <div class="col-12 col-md-6">
+                                    <label for="form-label-wrapper">
+                                      <p class="form-label">Dars vaqti</p>
+                                      <select name="time_lesson" id="time" class="form-input">
+                                          <option value="5:30-8:00">5:30-8:00</option>
+                                          <option value="8:00-11:00">8:00-11:00</option>
+                                          <option value="11:30-14:30">11:30-14:30</option>
+                                          <option value="15:00-17:00">15:00-17:00</option>
+                                          <option value="18:00-21:00">18:00-21:00</option>
+                                      </select>
+                                    </label>
+                                  </div>
+                                  <div class="col-12 col-md-6">
+                                    <label for="form-label-wrapper">
+                                      <p class="form-label">Yangi o'qituvchi</p>
+                                      <select name="teacher_id" id="teacher" class="form-input">
+                                        <% teachers.forEach(t => { %>
+                                          <option value="<%= t.id %>"><%= t.teacher_name %></option>
+                                        <% }); %>
+                                      </select>
+                                    </label>
+                                  </div>
+                                  <div class="col-12z">
+                                    <label for="form-label-wrapper">
+                                      <p class="form-label">Yangi kurs</p>
+                                      <select name="course_id" id="teacher" class="form-input">
+                                        <% course.forEach(c => { %>
+                                          <option value="<%= c.id %>"><%= c.course_title %></option>
+                                        <% }); %>
+                                      </select>
+                                    </label>
+                                  </div>
+                                  <div class="col-12 my-2">
+                                    <button class="form-btn primary-default-btn" type="submit">
+                                      Tahrirlash
+                                    </button>
+                                  </div>
+                                </div>
+                              </form>
+                            </div>
+                            <a href="#" class="modal__close">&times;</a>
+                          </div>
+                        </div>
+                        <!-- ! Footer -->
+                        <%- include("./components/footer") %>
+                </div>
+        </div>
+        <!-- Scripts -->
+        <%- include("./components/scripts") %>
+        <script>
+          const selectTag = document.querySelector("#selectOnCourse");
+          selectTag.addEventListener("change", (e) => {
+            e.preventDefault()
+            const course_id = e.target.value;
+            fetch("http://localhost:3003/selectOnCourse", {
+              method: "post",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({course_id: course_id})
+            })
+            .then(res => res.json())
+            .then(data => {
+              const TeacherId = document.querySelector("#TeacherId");
+              const optionTag = document.createElement("option");
+              const teachers = data;
+              teachers.forEach(teacher => {
+                optionTag.value = teacher.id;
+                optionTag.textContent = teacher.teacher_name;
+                TeacherId.appendChild(optionTag);
+              });
+            })
+          })
+        </script>
+    </body>
+
+</html>

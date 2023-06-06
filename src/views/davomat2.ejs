@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include("./components/head") %>
+
+    <body>
+        <div class="layer"></div>
+        <!-- ! Body -->
+        <a class="skip-link sr-only" href="#skip-target">Asosiy menu</a>
+        <div class="page-flex">
+            <!-- ! Sidebar -->
+            <%- include("./components/sidebar") %>
+                <div class="main-wrapper">
+                    <!-- ! Main nav -->
+                    <%- include("./components/navbar") %>
+                        <!-- ! Main -->
+                        <main class="main users chart-page" id="skip-target">
+                            <div class="container">
+                                <h1 class="m-2 py-2 text-primary">
+                                    Matematika guruhi ro'yxati
+                                </h1>
+                                <div class="row my-3">
+                                    <div class="col-12 col-xl-4">
+                                        <div class="col-12">
+                                            <div class="card-groups">
+                                                <div class="top-pill">
+                                                    <p><%= groups[0].group_title %></p>
+                                                </div>
+                                                <div class="card-box">
+                                                    <div class="row my-2">
+                                                        <div class="col-3  m-2">
+                                                            <img src="<%= groups[0].teacher_img %>" alt="avatar"
+                                                                class="img-cirlce">
+                                                        </div>
+                                                        <div class="col-8  my-3">
+                                                            <p class="card_teacher_place"> <span><%= groups[0].teacher_name %> <%= groups[0].teacher_surname %></span>
+                                                            </p>
+                                                            <p class="card_teacher_place">Tell raqam:
+                                                                <span>+<%= groups[0].teacher_phone_num %></span>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="primary-texts-card p-2">
+                                                        <div class="card-text-wrapper">
+                                                            <p class="f1">Dars kunlari: </p>
+                                                            <p><%= groups[0].day_lesson %></p>
+                                                        </div>
+                                                        <div class="card-text-wrapper">
+                                                            <p class="f1">Dars vaqti: </p>
+                                                            <p><%= groups[0].time_lesson %></p>
+                                                        </div>
+                                                        <div class="card-text-wrapper">
+                                                            <p class="f1">o'quvchilar soni: </p>
+                                                            <p><%= studentsCount %> ta</p>
+                                                        </div>
+                                                        <div class="card-text-wrapper">
+                                                            <p class="f1">To'lov qilganlar: </p>
+                                                            <p><%= pCount ? pCount + ' ta' : 'Tolov qilinmagan' %></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 p-3">
+                                            <span><%= nAttend && nAttend[0] && nAttend[0].formatted_date ? nAttend[0].formatted_date : 'unknown' %></span>
+                                            <h2 class="my-special bold">Darsga kelmaganlar</h2> 
+                                            <ul class="cant-payment-list">
+                                                <% nAttend.forEach(s => { %>
+                                                    <li class="uppercase fw-bold">1. <%= s.student_surname %> <%= s.student_name %></li>
+                                                <% }); %>
+                                                
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-xl-8">
+                                        <div class="table-responsive custom-table-responsive">
+
+                                            <table class="table custom-table">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="cols">O'quvchining idsi</th>
+                                                        <th scope="cols">O'quvchining ism-familiyasi</th>
+                                                        <th scope="cols">Guruxi</th>
+                                                        <th scope="cols">Yo'qlama</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <% groups.forEach(g => { %>
+                                                        <tr>
+                                                            <td class="fw-bold"><%= g.student_id %></td>
+                                                            <td class="fw-bold uppercase"><%= g.student_name %> <%= g.student_surname %></td>
+                                                            <td class="fw-bold"><%= g.group_title %></td>
+                                                            <td>
+                                                                <a href="#update_modal" class="btn btn-success"><i class="fa fa-add"></i></button>
+                                                            </td>
+                                                        </tr>
+                                                    <% }); %>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                        </main>
+                        <div id="update_modal" class="modal">
+                            <div class="modal__content text-center">
+                              <h2 class="fw-bold">Davomat olish!</h2>
+                              <p class="py-2">
+                                Maydonlarni to'ldiring.
+                              </p>
+                              <div class="col-12">
+                                <form
+                                  class="sign-up-form form my-2 "
+                                  action="/attend"
+                                  method="post"
+                                  enctype="application/x-www-form-urlencoded"
+                                >
+                                  <div class="row">
+                                    <div class="col-12 col-md-6">
+                                      <label class="form-label-wrapper">
+                                        <p class="form-label">O'quvchining id raqami</p>
+                                        <input
+                                          class="form-input"
+                                          type="text"
+                                          name="student_id"
+                                          placeholder="o'quvchi idsi..."
+                                          required
+                                        />
+                                      </label>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                      <label class="form-label-wrapper">
+                                        <p class="form-label">Darsga kelganmi?</p>
+                                        <select name="attend" id="attend" class="form-input">
+                                            <option>tanlash...</option>
+                                            <option value="true">kelgan</option>
+                                            <option value="false">kelmagan</option>
+                                        </select>
+                                      </label>
+                                    </div>
+                                    <div class="col-12 my-2">
+                                      <button class="form-btn primary-default-btn" type="submit">
+                                        Yuborish
+                                      </button>
+                                    </div>
+                                  </div>
+                                </form>
+                              </div>
+                              <a href="#" class="modal__close">&times;</a>
+                            </div>
+                          </div>
+                        <!-- ! Footer -->
+                        <%- include("./components/footer") %>
+                </div>
+        </div>
+        <!-- Scripts -->
+        <%- include("./components/scripts") %>
+        <!-- <script>
+            const attentInput = document.querySelector('.switchA1');
+            const studentId = document.querySelector('.studentid');
+            // const isActive = attentInput.checked;   
+            
+            attentInput.addEventListener('change', (e) => {
+                e.preventDefault();
+                let valueOne = e.target.value;
+                fetch('/attend', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        attend: valueOne,
+                        student_id: studentId.textContent
+                    })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        // Handle the retrieved data here
+                        console.log(data);
+                    })
+                    .catch(error => {
+                        // Handle any errors that occurred during the fetch request
+                        console.error(error);
+                    });
+            })
+        </script> -->
+        <!-- <script>
+            const attentInputs = document.querySelectorAll('.switchA1');
+            const studentId = document.querySelectorAll('.studentid');
+            attentInputs.forEach(attentInput => {
+                attentInput.addEventListener('change', (e) => {
+                    e.preventDefault();
+                    let valueOne = e.target.value;
+                    fetch('/attend', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        attend: valueOne,
+                        student_id: stud_id.textContent
+                    })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        // Handle the retrieved data here
+                        console.log(data);
+                    })
+                    .catch(error => {
+                        // Handle any errors that occurred during the fetch request
+                        console.error(error);
+                    });
+                });
+            });
+
+        </script> -->
+    </body>
+</html>

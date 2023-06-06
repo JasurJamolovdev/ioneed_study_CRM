@@ -1,0 +1,64 @@
+<!-- Chart library -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const ctx = document.getElementById("myChart");
+  new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: ["Yanvar", "Fevral", "Mart", "Aprel", "May", "Iyun"],
+      datasets: [
+        {
+          label: "Jami o'quvchilar soni",
+          data: [220, 235, 213, 200, 237, 255],
+          borderWidth: 1,
+        },
+      ],
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
+    },
+  });
+</script>
+
+<script src="./plugins/chart.min.js"></script>
+<!-- Icons library -->
+<script src="./plugins/feather.min.js"></script>
+<!-- Custom scripts -->
+<script src="./js/script.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css"
+/>
+<script>
+  $(document).ready(function () {
+    $("#example").DataTable();
+  });
+</script>
+
+<script
+  type="text/javascript"
+  src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
+></script>
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+    let languageSpan = document.querySelector("#google_translate_element");
+    new google.translate.TranslateElement(
+      {
+        defaultLanguage: "uz",
+        pageLanguage: "uz",
+        includedLanguages: "en,uz,ru,fr,tr",
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+        autoDisplay: false,
+        multiLanguagePage: true,
+      },
+      languageSpan
+    );
+  }
+</script>
